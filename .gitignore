@@ -1,0 +1,74 @@
+# ----------------------------
+# React Native Core
+# ----------------------------
+node_modules/
+*.log
+npm-debug.*
+yarn-debug.log*
+yarn-error.log*
+
+# ----------------------------
+# React Native (Android)
+# ----------------------------
+android/.gradle/
+android/.idea/
+android/local.properties
+android/app/build/
+android/build/
+
+# Ignore release and debug APKs or bundles
+*.apk
+*.aab
+
+# Keystore files (debug/prod)
+*.jks
+*.keystore
+
+# Gradle cache / build info
+.gradle/
+build/
+**/gradle.properties  # Prevent leaking API keys
+**/local.properties
+
+# ----------------------------
+# React Native (iOS, if any)
+# ----------------------------
+ios/Pods/
+ios/Podfile.lock
+ios/DerivedData/
+ios/build/
+
+# Xcode project files
+*.xcworkspace
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata
+*.xcuserstate
+
+# ----------------------------
+# Metro + Babel + Watchman
+# ----------------------------
+.expo/
+.expo-shared/
+.expo-go
+.expo-cache/
+watchman.config.js
+
+# ----------------------------
+# Environment + Secrets
+# ----------------------------
+.env
+*.env.*
+.env.local
+.env.*.local
+.envrc
+
+# ----------------------------
+# System Files
+# ----------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
