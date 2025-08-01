@@ -27,8 +27,12 @@ android/build/
 # Gradle cache / build info
 .gradle/
 build/
-**/gradle.properties  # Prevent leaking API keys
+
+# Gradle + secrets
+**/gradle.properties
 **/local.properties
+android/gradle.properties
+
 
 # ----------------------------
 # React Native (iOS, if any)
