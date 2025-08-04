@@ -13,17 +13,25 @@ It shows how a malicious actor can:
 
 ## 📸 App Screenshots
 
-<div style="display: flex; justify-content: center; align-items: flex-start;">
-  <div style="flex: none; text-align: center;">
-    <strong>Home Page</strong><br/>
-    <img src="OCBCcloneByTok.png" alt="OCBC Clone Home Page" width="250"/>
-  </div>
-  <div style="flex: none; margin-left: -4px; text-align: center;">
-    <strong>Login Page</strong><br/>
-    <img src="OcbcLoginByTok.png" alt="OCBC Clone Login Page" width="250"/>
-  </div>
-</div>
 
+<div align="center">
+
+<table>
+  <tr>
+    <td align="center"><strong>Home Page</strong></td>
+    <td align="center"><strong>Login Page</strong></td>
+  </tr>
+  <tr>
+    <td>
+      <img src="OCBCcloneByTok.png" alt="OCBC Clone Home Page" width="250"/>
+    </td>
+    <td>
+      <img src="OcbcLoginByTok.png" alt="OCBC Clone Login Page" width="250"/>
+    </td>
+  </tr>
+</table>
+
+</div>
 
 ---
 
