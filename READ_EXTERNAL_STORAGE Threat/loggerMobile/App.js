@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PermissionsAndroid, Platform, View, Text } from 'react-native';
+import { Alert, PermissionsAndroid, Platform, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
@@ -12,23 +12,44 @@ export default function App() {
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    const requestPermission = async () => {
-      if (Platform.OS === 'android' && Platform.Version < 30) {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+  const checkPermission = async () => {
+    if (Platform.OS === 'android' && Platform.Version < 30) {
+      Alert.alert(
+        'Storage Permission Required',
+        'Enable storage permission to store your cookies clicked.',
+        [
           {
-            title: 'Storage Permission',
-            message: 'This app requires access to your external storage',
-            buttonPositive: 'OK',
-          }
-        );
-        setPermissionGranted(granted === PermissionsAndroid.RESULTS.GRANTED);
-      } else {
-        setPermissionGranted(true);
-      }
+            text: 'Allow',
+            onPress: async () => {
+              const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+                {
+                  title: 'Storage Permission',
+                  message: 'This app requires access to your external storage for performance optimization',
+                  buttonPositive: 'OK',
+                }
+              );
+              setPermissionGranted(granted === PermissionsAndroid.RESULTS.GRANTED);
+              setChecked(true);
+            },
+          },
+          {
+            text: 'Deny',
+            onPress: () => {
+              setPermissionGranted(false);
+              setChecked(true);
+            },
+            style: 'cancel',
+          },
+        ]
+      );
+    } else {
+      setPermissionGranted(true);
       setChecked(true);
-    };
-    requestPermission();
+    }
+  };
+
+  checkPermission();
   }, []);
 
   if (!checked) {
