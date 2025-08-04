@@ -18,7 +18,7 @@ This repository showcases **two complementary Android apps** that demonstrate bo
 
 ## 📦 Included Apps
 
-### 1. [`📱 Encrypted/Unencrypted Logger`](./EncryptedLoggerApp)
+### 1. [`📱 Encrypted/Unencrypted Logger`](./mobile)
 
 A **login-based app** that:
 - Logs fake user credentials and timestamp to `/sdcard/Download/log.txt`.
