@@ -1,6 +1,9 @@
 package com.victimapp
 
+import android.os.Build
 import android.os.Binder
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -24,18 +27,64 @@ class MySensitiveReceiver : BroadcastReceiver() {
         activeToast?.show()
     }
 
+    // private fun sendToJS(context: Context, payload: String) {
+    //     val app = context.applicationContext as ReactApplication
+    //     val reactContext: ReactContext? = app.reactNativeHost.reactInstanceManager.currentReactContext
+
+    //     if (reactContext != null) {
+    //         reactContext
+    //             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+    //             .emit("CleanupTriggered", payload)
+    //     } else {
+    //         Log.w("VictimApp", "ReactContext not ready — JS not notified")
+    //     }
+    // }
+
+    // private fun sendToJS(context: Context, payload: String) {
+    //     val app = context.applicationContext as ReactApplication
+    //     val reactContext: ReactContext? = app.reactNativeHost.reactInstanceManager.currentReactContext
+
+    //     if (reactContext != null) {
+    //         val handler = android.os.Handler(android.os.Looper.getMainLooper())
+    //         handler.post {
+    //             reactContext
+    //                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+    //                 .emit("CleanupTriggered", payload)
+    //             Log.i("VictimApp", "✅ Sent event to JS: $payload")
+    //         }
+    //     } else {
+    //         Log.w("VictimApp", "❌ ReactContext not ready — JS not notified")
+    //     }
+    // }
+
     private fun sendToJS(context: Context, payload: String) {
         val app = context.applicationContext as ReactApplication
-        val reactContext: ReactContext? = app.reactNativeHost.reactInstanceManager.currentReactContext
+        val reactInstanceManager = app.reactNativeHost.reactInstanceManager
 
-        if (reactContext != null) {
-            reactContext
-                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-                .emit("CleanupTriggered", payload)
-        } else {
-            Log.w("VictimApp", "ReactContext not ready — JS not notified")
+        fun attemptEmit(retryCount: Int = 5) {
+            val reactContext = reactInstanceManager.currentReactContext
+            if (reactContext != null) {
+                val handler = android.os.Handler(android.os.Looper.getMainLooper())
+                handler.post {
+                    reactContext
+                        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+                        .emit("CleanupTriggered", payload)
+                    Log.i("VictimApp", "✅ Sent event to JS: $payload")
+                }
+            } else if (retryCount > 0) {
+                Log.w("VictimApp", "⏳ ReactContext not ready, retrying in 500ms... ($retryCount left)")
+                android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                    attemptEmit(retryCount - 1)
+                }, 500)
+            } else {
+                Log.e("VictimApp", "❌ Failed to send event to JS: ReactContext not ready")
+            }
         }
+
+        attemptEmit()
     }
+
+
 
     override fun onReceive(context: Context, intent: Intent) {
 
@@ -85,6 +134,21 @@ class MySensitiveReceiver : BroadcastReceiver() {
         }
 
         showPersistentToast(context, message)
+
+        val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            @Suppress("DEPRECATION")
+            vibrator.vibrate(500)
+        }
+
+        val launchIntent = context.packageManager.getLaunchIntentForPackage("com.victimapp")
+        launchIntent?.let {
+            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(it)
+        }
+
         sendToJS(context, payload ?: "UNKNOWN")
     }
 }

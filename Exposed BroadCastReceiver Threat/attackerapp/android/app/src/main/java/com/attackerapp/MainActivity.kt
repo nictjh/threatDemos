@@ -53,7 +53,7 @@ class MainActivity : ReactActivity() {
     private val spamRunnable = object : Runnable {
         override fun run() {
         sendSpam()
-        handler.postDelayed(this, 1) // Every 1ms
+        handler.postDelayed(this, 3000) // Every 3 seconds
         }
     }
 
