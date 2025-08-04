@@ -26,29 +26,29 @@ class MainActivity : ReactActivity() {
     private var spamming = false
     private lateinit var spamButton: Button
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    // Set the theme to AppTheme BEFORE onCreate to support
-    // coloring the background, status bar, and navigation bar.
-    // This is required for expo-splash-screen.
-    setTheme(R.style.AppTheme);
-    super.onCreate(null)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // Set the theme to AppTheme BEFORE onCreate to support
+        // coloring the background, status bar, and navigation bar.
+        // This is required for expo-splash-screen.
+        setTheme(R.style.AppTheme);
+        super.onCreate(null)
 
-    spamButton = Button(this).apply {
-      text = "🔥 Start Spamming Cleanup"
-      setOnClickListener {
-        if (!spamming) {
-          startSpam()
-          text = "⏹️ Stop Spamming"
-        } else {
-          stopSpam()
-          text = "🔥 Start Spamming Cleanup"
+        spamButton = Button(this).apply {
+        text = "🔥 Start Spamming Cleanup"
+        setOnClickListener {
+            if (!spamming) {
+            startSpam()
+            text = "⏹️ Stop Spamming"
+            } else {
+            stopSpam()
+            text = "🔥 Start Spamming Cleanup"
+            }
         }
-      }
-    }
+        }
 
-    // Set the content view to the button
-    setContentView(spamButton)
-  }
+        // Set the content view to the button
+        setContentView(spamButton)
+    }
 
     private val spamRunnable = object : Runnable {
         override fun run() {
