@@ -4,6 +4,8 @@
 
 This repository serves as an educational resource showcasing **real-world Android security threats** and their corresponding **mitigation strategies**. Each demonstration includes working code examples, detailed attack vectors, and security controls to help developers understand and prevent these vulnerabilities in production applications.
 
+> **⚡ This repository is actively maintained and continuously expanding**
+
 ---
 
 ## 🎯 Repository Objectives
@@ -190,7 +192,7 @@ Run each demo in controlled environments:
 
 ---
 
-## 🛡️ Security Recommendations Collated
+## �🛡️ Security Recommendations Collated
 
 ### 🔒 **For Developers**
 1. **Always set minimum SDK versions** to latest patched Android releases
