@@ -80,6 +80,7 @@ A complete reproduction of the infamous **Janus signature bypass vulnerability**
 **Mitigation:** AES encryption, Android Keystore, scoped storage (API 29+)
 
 [📁 **View External Storage Demo →**](./READ_EXTERNAL_STORAGE%20Threat/)
+
 [📁 **View WRITE_EXTERNAL_STORAGE Demo too! →**](https://github.com/nictjh/android-mobile-banking-app/blob/proof/ScopedStorage/README.md)
 
 ---
