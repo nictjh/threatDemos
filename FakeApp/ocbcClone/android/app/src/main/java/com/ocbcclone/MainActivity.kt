@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
@@ -20,18 +21,34 @@ class MainActivity : ReactActivity() {
     setTheme(R.style.AppTheme);
     super.onCreate(null)
 
-    // Commented out the installer check for demo purposes
-    // val installer = packageManager.getInstallerPackageName(packageName);
-    // Log.d("InstallSource", "$installer"); // I need to test this
-    // val allowedInstallers = listOf(
-    //   "com.android.vending", // Google Play Store
-    //   "com.huawei.appmarket", // Huawei AppGallery
-    //   "com.sec.android.app.samsungapps", // Samsung Galaxy Store
-    //   "com.amazon.venezia" // Amazon Appstore, if needed
-    // )
-    // if (installer == null || installer !in allowedInstallers) {
-    //   showBlockDialogAndExit();
-    // }
+    val allowedInstallers = listOf(
+      "com.android.vending", // Google Play Store
+      "com.huawei.appmarket", // Huawei AppGallery
+      "com.sec.android.app.samsungapps", // Samsung Galaxy Store
+      "com.amazon.venezia" // Amazon Appstore, if needed
+    )
+
+    // Newer Version of installer check for Android 11+, harder to spoof
+    val isTrusted: Boolean = try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // For Android 11 and above, use the package manager to check the installer, harder to spoof
+            val info = packageManager.getInstallSourceInfo(packageName)
+            val installer = info.installingPackageName
+            installer != null && installer in allowedInstallers
+        } else {
+            // Legacy Fallback
+            val installer = packageManager.getInstallerPackageName(packageName)
+            installer != null && installer in allowedInstallers
+        }
+    } catch (e: Exception) {
+        Log.e("InstallSource", "Error checking installer: ${e.message}")
+        false // Default to false if there's an error
+    }
+
+    if (!isTrusted) {
+        showBlockDialogAndExit()
+        return // Exit the activity if not trusted
+    }
 
   }
 
