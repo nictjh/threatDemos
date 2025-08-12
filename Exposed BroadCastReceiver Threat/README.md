@@ -98,3 +98,20 @@ It showcases the importance of:
 
 **Always assume exported components can be discovered.**
 Use signature-level permissions and internal-only designs for sensitive functionality.
+
+---
+
+## 🎬 Video Demo
+
+Watch the demonstration of the broadcast receiver vulnerability in action:
+
+https://github.com/user-attachments/assets/ExposedReceiverDemo.MOV
+
+*The video shows how the attacker app continuously triggers the victim app's exposed broadcast receiver, causing repeated vibrations, toasts, and app launches. It also includes possible mitigation controls.*
+
+### Alternative viewing methods:
+
+If the video doesn't play directly in GitHub, you can:
+- Download the file: [`ExposedReceiverDemo.MOV`](./ExposedReceiverDemo.MOV)
+- View it locally after cloning the repository
+
