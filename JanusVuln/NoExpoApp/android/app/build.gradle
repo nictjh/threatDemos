@@ -118,7 +118,7 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
             v1SigningEnabled true
-            v2SigningEnabled false
+            v2SigningEnabled true // Need to set to true for this if want to install on Android 13+ devices
         }
     }
     buildTypes {

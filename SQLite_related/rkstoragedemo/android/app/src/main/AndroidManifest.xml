@@ -18,29 +18,12 @@
     </intent>
   </queries>
 
-  <permission
-    android:name="com.victimapp.SENSITIVE_PERMISSION"
-    android:protectionLevel="normal" />
-    <!-- if I never declare it will be normal -->
-    <!-- One way is to declare it as signature, then only apps signed with the same key can use it. -->
-
   <application android:name=".MainApplication" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:allowBackup="false" android:theme="@style/AppTheme" android:supportsRtl="true">
-    <receiver
-        android:name=".MySensitiveReceiver"
-        android:exported="true">
-        <!-- android:permission="com.victimapp.SENSITIVE_PERMISSION"> -->
-        <intent-filter>
-            <action android:name="com.victimapp.CLEANUP"/>
-        </intent-filter>
-    </receiver>
-
     <activity android:name=".MainActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|uiMode" android:launchMode="singleTask" android:windowSoftInputMode="adjustResize" android:theme="@style/Theme.App.SplashScreen" android:exported="true">
-
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
-
     </activity>
   </application>
 </manifest>

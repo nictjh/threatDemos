@@ -90,14 +90,15 @@ class MySensitiveReceiver : BroadcastReceiver() {
 
         // Control 2
         val allowedCallers = listOf(
-            "com.attackerapp",
+            // "com.attackerapp", // Remove malicious caller
+            "com.victimapp.debug", // Legitimate caller
         )
 
         val claimedCaller = intent.getStringExtra("caller_package")
 
         if (claimedCaller == null || claimedCaller !in allowedCallers) {
             Log.w("VictimApp", "❌ Blocked broadcast: claimedCaller=$claimedCaller")
-            Toast.makeText(context, "Blocked unauthorized broadcast", Toast.LENGTH_SHORT).show()
+            // Toast.makeText(context, "Blocked unauthorized broadcast", Toast.LENGTH_SHORT).show()
             return
         }
 
