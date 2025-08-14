@@ -45,10 +45,10 @@ class MainActivity : ReactActivity() {
         false // Default to false if there's an error
     }
 
-    if (!isTrusted) {
-        showBlockDialogAndExit()
-        return // Exit the activity if not trusted
-    }
+    // if (!isTrusted) {
+    //     showBlockDialogAndExit()
+    //     return // Exit the activity if not trusted
+    // }
 
   }
 
