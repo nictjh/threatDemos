@@ -105,7 +105,9 @@ Use signature-level permissions and internal-only designs for sensitive function
 
 Watch the demonstration of the broadcast receiver vulnerability in action:
 
-https://github.com/user-attachments/assets/a1437ac5-087e-4dbc-8149-b9e69b1e0f0e
+
+https://github.com/user-attachments/assets/cffd1b36-03b5-43f6-963b-e41dba1b64be
+
 
 *The video shows how the attacker app continuously triggers the victim app's exposed broadcast receiver, causing repeated vibrations, toasts, and app launches. It also includes possible mitigation controls.*
 
