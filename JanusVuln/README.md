@@ -2,6 +2,15 @@
 
 > **Purpose** — Reproduce the Janus signature-bypass bug on an **Android 6.0** emulator to prove why bumping `minSdkVersion` (and therefore requiring newer, fully-patched devices) is a *critical* security control flagged by tools such as **MobSF**.
 
+## 🎬 Video Demo
+
+Watch the demonstration of the broadcast receiver vulnerability in action:
+https://github.com/user-attachments/assets/4853fbfa-5865-4fc6-ba3e-22acd1c668de
+
+*The video shows the Janus vulnerability exploit on a Android 6 Android Studio Emulator. It includes the controls implemented to mitigate this issue.*
+
+---
+
 ## 🏆 **WORKING IMPLEMENTATION - August 2025**
 
 > **⚡ This is a fully functional Janus exploit that STILL WORKS on Android Studio's Android 6.0 (API 23) images as of August 2025, while most other implementations found online have become obsolete or non-functional.**
