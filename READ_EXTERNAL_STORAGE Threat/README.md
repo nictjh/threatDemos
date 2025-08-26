@@ -43,6 +43,15 @@ A **fun-looking cookie clicker app** that is actually:
 
 ---
 
+## 🎬 Video Demo
+
+Watch the threat demonstration of granting READ_EXTERNAL_STORAGE in action:
+
+
+https://github.com/user-attachments/assets/20027101-7aa0-4f7f-921b-8cb6c37b86ce
+
+
+---
 ## 📂 Folder Structure
 
 ```
