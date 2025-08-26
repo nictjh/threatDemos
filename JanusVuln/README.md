@@ -4,7 +4,7 @@
 
 ## 🎬 Video Demo
 
-Watch the demonstration of the broadcast receiver vulnerability in action:
+Watch the threat demonstration of the allowing intalls of apps on vulnerable Android versions in action:
 
 https://github.com/user-attachments/assets/71f87765-9621-4413-a74f-eb15435b859d
 
