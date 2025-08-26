@@ -5,7 +5,8 @@
 ## 🎬 Video Demo
 
 Watch the demonstration of the broadcast receiver vulnerability in action:
-https://github.com/user-attachments/assets/4853fbfa-5865-4fc6-ba3e-22acd1c668de
+
+https://github.com/user-attachments/assets/71f87765-9621-4413-a74f-eb15435b859d
 
 *The video shows the Janus vulnerability exploit on a Android 6 Android Studio Emulator. It includes the controls implemented to mitigate this issue.*
 
