@@ -11,6 +11,9 @@ If `android:allowBackup="true"` your app’s private data (shared prefs, files, 
 Watch the threat demonstration of allowing backups for release builds in action:
 
 
+https://github.com/user-attachments/assets/735392e9-849e-4e86-be81-fb960471b407
+
+
 ---
 
 ## Table of Contents
