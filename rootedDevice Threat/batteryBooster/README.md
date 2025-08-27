@@ -17,6 +17,16 @@ This proof-of-concept (PoC) app shows how a **rooted device** can be exploited t
 
 ---
 
+## 🎬 Video Demo
+
+Watch how rooted devices can suffer from DoS:
+
+
+https://github.com/user-attachments/assets/7b3da589-047b-4860-9eb4-5c0d428ec1b9
+
+
+---
+
 ## ⚙️ How It Works
 
 - The victim app ([**android-mobile-banking app**](https://github.com/nictjh/android-mobile-banking-app/tree/threatDemo/changingTokensWRoot)) stores persistent auth/session data in:
