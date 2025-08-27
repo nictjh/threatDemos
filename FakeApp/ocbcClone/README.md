@@ -11,6 +11,15 @@ It shows how a malicious actor can:
 
 ---
 
+## 🎬 Video Demo
+
+Watch the entire attack of impersonating legitimate applications to harvest credentials:
+
+https://github.com/user-attachments/assets/0ae1fd74-dd02-42b9-9668-c28c40fc3bf8
+
+
+---
+
 ## 📸 App Screenshots
 
 
